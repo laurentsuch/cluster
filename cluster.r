@@ -41,4 +41,4 @@ Error in fviz_nbclust(daisy_dist, method = "silhouette") :
 
 > tsne_obj <- Rtsne(dist, perplexity=28, is_distance=TRUE)
 
-
+# perplexity is either N^(1/2) or R-1/3
