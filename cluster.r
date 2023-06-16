@@ -22,3 +22,5 @@ tsne_data <- tsne_obj$Y %>%
    mutate(cluster=factor(pam_fit$clustering))
 ggplot(aes(x=X, y=Y), data=tsne_data) + geom_point(aes(color=cluster))
 
+# PREDICTIVE MODELING COMPONENT
+
