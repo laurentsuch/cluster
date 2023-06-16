@@ -1,3 +1,5 @@
+# CLUSTERING ALGORITHM 
+
 # obtains the dissimilarity matrix for gower distances between both numerical and categorical values 
 gower_dist <- daisy(data, metric="gower", weights=c(1:28))
 
@@ -6,28 +8,17 @@ for(i in 2:10) {
    pam_fit <- pam(gower_dist, diss=TRUE, k=i) 
    sil_width[i] <- pam_fit$silinfo$avg.width
 }
+# give results of average silhouette width per k clusters in a plot
+plot(1:10, sil_width, xlab = "Number of clusters", ylab = "Silhouette width")
+lines(1:10, sil_width)
 
+# visualizing clusters that we calculated with gower_dist, PAM)
 dist <- gower_dist
+pam_fit <- pam(gower_dist, diss=TRUE, k = 2) # using optimal num k
+tsne_obj <- Rtsne(gower_dist, is_distance = TRUE) # perplexity is either N^(1/2) or R-1/3
+tsne_data <- tsne_obj$Y %>%
+   data.frame() %>%
+   setNames(c("X", "Y")) %>%
+   mutate(cluster=factor(pam_fit$clustering))
+ggplot(aes(x=X, y=Y), data=tsne_data) + geom_point(aes(color=cluster))
 
-
-pamx <-pam(dist, 4)
-sil <- silhouette(pamx$clustering, dist)
-plot(sil)
-pamx <- pam(dist, 5)
-sil <- silhouette(pamx$clustering, dist)
-plot(sil)
-pamx <- pam(dist, 6)
-sil <- silhouette(pamx$clustering, dist)
-# using sihouette plots, find best amount of clusters 
-# average silhouette width: closer to one the best fit
-
-> pam_fit <- pam(dist, 6)
-> pam_results <- testdat %>%
-+ mutate(cluster = pam_fit$clustering) %>%
-+ group_by(cluster) %>%
-+ do(the_summary = summary(.))
-> pam_results$the_summary
-
-> tsne_obj <- Rtsne(dist, perplexity=28, is_distance=TRUE)
-
-# perplexity is either N^(1/2) or R-1/3
