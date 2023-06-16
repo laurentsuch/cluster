@@ -1,3 +1,10 @@
+library(h2o)
+library(cluster)
+library(Rtsne)
+library(ggplot2)
+library(ggfortify)
+
+
 # CLUSTERING ALGORITHM 
 
 # obtains the dissimilarity matrix for gower distances between both numerical and categorical values 
@@ -24,6 +31,8 @@ ggplot(aes(x=X, y=Y), data=tsne_data) + geom_point(aes(color=cluster))
 
 # PREDICTIVE MODELING COMPONENT
 # PCA
+library(stats)
 results <- prcomp(df) # PCA only takes numerical values 
 # multinomial linear regression model 
+library(prcomp)
 multinom.fit <- multinom(df ~ ., data = train)
