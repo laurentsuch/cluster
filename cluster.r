@@ -3,7 +3,10 @@ library(cluster)
 library(Rtsne)
 library(ggplot2)
 library(ggfortify)
-
+library(factoextra)
+library(FactoMineR)
+library(dpylr)
+library(NbClust)
 
 # CLUSTERING ALGORITHM 
 
