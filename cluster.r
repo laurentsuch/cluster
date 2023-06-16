@@ -1,9 +1,15 @@
-data <- testdat
-daisy_dist <- daisy(data, metric="gower", weights=c(1:28))
 # obtains the dissimilarity matrix for gower distances between both numerical and categorical values 
-view(daisy_dist)
+gower_dist <- daisy(data, metric="gower", weights=c(1:28))
 
-dist <- daisy_dist
+# uses PAM clustering method to find optimal number of k clusters 
+for(i in 2:10) {
+   pam_fit <- pam(gower_dist, diss=TRUE, k=i) 
+   sil_width[i] <- pam_fit$silinfo$avg.width
+}
+
+dist <- gower_dist
+
+
 pamx <-pam(dist, 4)
 sil <- silhouette(pamx$clustering, dist)
 plot(sil)
