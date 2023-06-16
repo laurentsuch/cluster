@@ -36,5 +36,6 @@ ggplot(aes(x=X, y=Y), data=tsne_data) + geom_point(aes(color=cluster))
 # PCA
 results <- prcomp(df) # PCA only takes numerical values 
 # multinomial linear regression model 
-library(prcomp)
+library(nnet)
 multinom.fit <- multinom(df ~ ., data = train)
+pred.probs <- predict(multinom.fit, type = "probs")
