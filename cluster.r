@@ -23,4 +23,7 @@ tsne_data <- tsne_obj$Y %>%
 ggplot(aes(x=X, y=Y), data=tsne_data) + geom_point(aes(color=cluster))
 
 # PREDICTIVE MODELING COMPONENT
-
+# PCA
+results <- prcomp(df) # PCA only takes numerical values 
+# multinomial linear regression model 
+multinom.fit <- multinom(df ~ ., data = train)
