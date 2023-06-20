@@ -22,6 +22,11 @@ for(i in 2:10) {
 plot(1:10, sil_width, xlab = "Number of clusters", ylab = "Silhouette width")
 lines(1:10, sil_width)
 
+# OR we can plot each average silhouette width depending on k clusters and compare average silhouette width 
+pam.res <- pam(gower_dist, k)
+sil.res <- silhouette(pam.res$clustering, gower_dist)
+plot(sil.res) #fviz_silhouette(sil.res) 
+
 # visualizing clusters that we calculated with gower_dist, PAM)
 dist <- gower_dist
 pam_fit <- pam(gower_dist, diss=TRUE, k = 2) # using optimal num k
