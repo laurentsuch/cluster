@@ -9,11 +9,10 @@ library(dpylr)
 library(NbClust)
 
 # CLEANING DATA
-df <- df %>% mutate_if(is.character, as.factor)
+df <- df %>% mutate_if(is.character, as.factor) # converts all characters to factors
 ncol(df)
 
 # CLUSTERING ALGORITHM 
-
 # obtains the dissimilarity matrix for gower distances between both numerical and categorical values 
 gower_dist <- daisy(data, metric="gower", weights=c(1:28))
 
