@@ -17,6 +17,8 @@ df <- df %>% mutate_if(is.character, as.factor) # converts all characters to fac
 ncol(df) # finds number of columns 
 df <- df %>% mutate(across(where(is.numeric), scale)) # scaling only numerical values in data frame
 
+# SAVE AN EXCEL SHEET WITH FINALIZED DATA MEMBERS AFTER CLEANING
+
 # CLUSTERING ALGORITHM 
 # obtains the dissimilarity matrix for gower distances between both numerical and categorical values 
 gower_dist <- daisy(data, metric="gower", weights=c(1:28))
@@ -65,4 +67,8 @@ plot(div.clust, main = "Divisive") # divisive clustering model; top-bottom appro
 aggl.clust <- hclust(gower_dist, method = "complete")
 plot(aggl.clust, main = "Agglomerative") # agglomerative clustering model; bottom-top approach
 
-
+# ANALYZING RESULTS OF THE CLUSTER ANALYSIS 
+cluster_num <- tsne_data$cluster
+cluster_num <- as.matrix(cluster_num)
+cluster_num <- data.frame(cluster_num)
+write.xlsx(cluster_num, file="clusterAssignment") # writes an excel file to list all cluster assignments 
