@@ -32,6 +32,12 @@ pam.res <- pam(gower_dist, k)
 sil.res <- silhouette(pam.res$clustering, gower_dist)
 plot(sil.res) #fviz_silhouette(sil.res) 
 
+# OR we could find optimal number of k clusters with gap statistic or WSS
+fviz_nbclust(as.matrix(gower_dist), pam, method = "wss")
+fviz_nbclust(as.matrix(gower_dist), pam, method ="gap_stat")
+
+# we should compare all three methods to see largest number of k clusters we can try out 
+
 # visualizing clusters that we calculated with gower_dist, PAM)
 dist <- gower_dist
 pam_fit <- pam(gower_dist, diss=TRUE, k = 2) # using optimal num k
