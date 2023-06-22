@@ -8,6 +8,10 @@ library(FactoMineR)
 library(dpylr)
 library(NbClust)
 
+# CLEANING DATA
+df <- df %>% mutate_if(is.character, as.factor)
+ncol(df)
+
 # CLUSTERING ALGORITHM 
 
 # obtains the dissimilarity matrix for gower distances between both numerical and categorical values 
