@@ -11,6 +11,7 @@ library(factoextra)
 library(FactoMineR)
 library(dpylr)
 library(NbClust)
+library(openxlsx)
 
 
 # CLEANING DATA
