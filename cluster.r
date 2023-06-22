@@ -1,3 +1,7 @@
+# BELOW is the helper code for clustering algorithm and predictive piece to shorten our survey
+# Not all steps are necessary for analysis; read comments for necessary implementation 
+# This is NOT complete 
+
 library(h2o)
 library(cluster)
 library(Rtsne)
@@ -35,8 +39,6 @@ plot(sil.res) #fviz_silhouette(sil.res)
 # OR we could find optimal number of k clusters with gap statistic or WSS
 fviz_nbclust(as.matrix(gower_dist), pam, method = "wss")
 fviz_nbclust(as.matrix(gower_dist), pam, method ="gap_stat")
-
-# we should compare all three methods to see largest number of k clusters we can try out 
 
 # visualizing clusters that we calculated with gower_dist, PAM)
 dist <- gower_dist
