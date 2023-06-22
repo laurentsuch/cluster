@@ -12,12 +12,13 @@ library(FactoMineR)
 library(dpylr)
 library(NbClust)
 
+
 # CLEANING DATA
 df <- df %>% mutate_if(is.character, as.factor) # converts all characters to factors
 ncol(df) # finds number of columns 
 df <- df %>% mutate(across(where(is.numeric), scale)) # scaling only numerical values in data frame
-
 # SAVE AN EXCEL SHEET WITH FINALIZED DATA MEMBERS AFTER CLEANING
+
 
 # CLUSTERING ALGORITHM 
 # obtains the dissimilarity matrix for gower distances between both numerical and categorical values 
@@ -52,6 +53,7 @@ tsne_data <- tsne_obj$Y %>%
    mutate(cluster=factor(pam_fit$clustering))
 ggplot(aes(x=X, y=Y), data=tsne_data) + geom_point(aes(color=cluster))
 
+
 # PREDICTIVE MODELING COMPONENT
 # PCA
 results <- prcomp(df) # PCA only takes numerical values 
@@ -66,6 +68,7 @@ div.clust <- diana(as.matrix(gower_dist), diss = TRUE, keep.diss = TRUE)
 plot(div.clust, main = "Divisive") # divisive clustering model; top-bottom approach
 aggl.clust <- hclust(gower_dist, method = "complete")
 plot(aggl.clust, main = "Agglomerative") # agglomerative clustering model; bottom-top approach
+
 
 # ANALYZING RESULTS OF THE CLUSTER ANALYSIS 
 cluster_num <- tsne_data$cluster
