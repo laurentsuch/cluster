@@ -14,6 +14,7 @@ library(NbClust)
 gower_dist <- daisy(data, metric="gower", weights=c(1:28))
 
 # uses PAM clustering method to find optimal number of k clusters 
+sil_width <- c(NA)
 for(i in 2:10) {
    pam_fit <- pam(gower_dist, diss=TRUE, k=i) 
    sil_width[i] <- pam_fit$silinfo$avg.width
@@ -44,3 +45,12 @@ results <- prcomp(df) # PCA only takes numerical values
 library(nnet)
 multinom.fit <- multinom(df ~ ., data = train)
 pred.probs <- predict(multinom.fit, type = "probs")
+
+
+# OPTIONAL HIERARCHIAL CLUSTERING
+div.clust <- diana(as.matrix(gower_dist), diss = TRUE, keep.diss = TRUE)
+plot(div.clust, main = "Divisive") # divisive clustering model; top-bottom approach
+aggl.clust <- hclust(gower_dist, method = "complete")
+plot(aggl.clust, main = "Agglomerative") # agglomerative clustering model; bottom-top approach
+
+
