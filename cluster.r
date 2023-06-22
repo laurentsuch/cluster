@@ -10,7 +10,8 @@ library(NbClust)
 
 # CLEANING DATA
 df <- df %>% mutate_if(is.character, as.factor) # converts all characters to factors
-ncol(df)
+ncol(df) # finds number of columns 
+df <- df %>% mutate(across(where(is.numeric), scale)) # scaling only numerical values in data frame
 
 # CLUSTERING ALGORITHM 
 # obtains the dissimilarity matrix for gower distances between both numerical and categorical values 
