@@ -58,6 +58,10 @@ ggplot(aes(x=X, y=Y), data=tsne_data) + geom_point(aes(color=cluster))
 # PREDICTIVE MODELING COMPONENT
 # PCA
 results <- prcomp(df) # PCA only takes numerical values 
+# PCA for mixed data 
+library(PCAmixdata)
+pca.res <- PCAmix(dfNum, dfCat) # this will create a model with cumulative scores for PCA analysis 
+# dfNum is data frame with only numerical variables; dfCat is data frame with only categorical data
 # multinomial linear regression model 
 library(nnet)
 multinom.fit <- multinom(df ~ ., data = train)
