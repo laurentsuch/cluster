@@ -18,7 +18,7 @@ library(openxlsx)
 df <- df %>% mutate_if(is.character, as.factor) # converts all characters to factors
 ncol(df) # finds number of columns 
 df <- df %>% mutate(across(where(is.numeric), scale)) # scaling only numerical values in data frame
-# SAVE AN EXCEL SHEET WITH FINALIZED DATA MEMBERS AFTER CLEANING
+# SAVE AN EXCEL SHEET WITH FINALIZED DATA MEMBERS AFTER CLEANING (MUST DO!!!)
 
 
 # CLUSTERING ALGORITHM 
@@ -58,10 +58,16 @@ ggplot(aes(x=X, y=Y), data=tsne_data) + geom_point(aes(color=cluster))
 # PREDICTIVE MODELING COMPONENT
 # PCA
 results <- prcomp(df) # PCA only takes numerical values 
-# PCA for mixed data 
-library(PCAmixdata)
-pca.res <- PCAmix(dfNum, dfCat) # this will create a model with cumulative scores for PCA analysis 
-# dfNum is data frame with only numerical variables; dfCat is data frame with only categorical data
+# FAMD 
+res.famd <- FAMD(df) # FAMD takes mixed data 
+print(res.famd)
+fviz_screeplot(res.famd)
+var <- get_famd_var(res.famd)
+var
+head(var$coord)
+fviz_famd_var(res.famd, repel=TRUE)
+fviz_contrib(res.famd, "var", axes = 1)
+fviz_contrib(res.famd, "var", axes = 2)
 # multinomial linear regression model 
 library(nnet)
 multinom.fit <- multinom(df ~ ., data = train)
