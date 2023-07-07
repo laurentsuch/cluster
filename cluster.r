@@ -68,6 +68,8 @@ head(var$coord)
 fviz_famd_var(res.famd, repel=TRUE)
 fviz_contrib(res.famd, "var", axes = 1)
 fviz_contrib(res.famd, "var", axes = 2)
+# for confusion matrix
+
 # multinomial linear regression model 
 library(nnet)
 multinom.fit <- multinom(df ~ ., data = train)
