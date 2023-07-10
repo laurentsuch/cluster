@@ -12,6 +12,8 @@ library(FactoMineR)
 library(dpylr)
 library(NbClust)
 library(openxlsx)
+library(nnet)
+library(caret)
 
 
 # CLEANING DATA
@@ -56,9 +58,7 @@ ggplot(aes(x=X, y=Y), data=tsne_data) + geom_point(aes(color=cluster))
 
 
 # PREDICTIVE MODELING COMPONENT
-# PCA
-results <- prcomp(df) # PCA only takes numerical values 
-# FAMD 
+# famd 
 res.famd <- FAMD(df) # FAMD takes mixed data 
 print(res.famd)
 fviz_screeplot(res.famd)
@@ -68,17 +68,14 @@ head(var$coord)
 fviz_famd_var(res.famd, repel=TRUE)
 fviz_contrib(res.famd, "var", axes = 1)
 fviz_contrib(res.famd, "var", axes = 2)
-# for confusion matrix
 
 # multinomial linear regression model 
-library(nnet)
 total <- cbind(cluster.df, df)
 multinom.fit <- multinom(cluster.df ~ ., data = df)
 summary(multinom.fit)
 z <- (summary(test)$coefficients)/(summary(test)$standard.errors)
 p <- (1 - pnorm(abs(z), 0, 1)) * 2
 exp(coef(test))
-library(caret)
 impVar <- varImp(multinom.fit)
 
 
