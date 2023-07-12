@@ -100,3 +100,4 @@ comparegroups.main = compareGroups(formula=Group ~ ., data=total.c)
 comparegroups.main
 comparegroups.main.table = createTable(x = comparegroups.main, show.all=T)
 comparegroups.main.table 
+
