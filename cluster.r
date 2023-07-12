@@ -91,3 +91,12 @@ cluster_num <- tsne_data$cluster
 cluster_num <- as.matrix(cluster_num)
 cluster_num <- data.frame(cluster_num)
 write.xlsx(cluster_num, file="clusterAssignment") # writes an excel file to list all cluster assignments 
+
+
+# to find cluster summaries: 
+# add a cluster num column to data set combine the two using cbind 
+library(compareGroups)
+comparegroups.main = compareGroups(formula=Group ~ ., data=total.c)
+comparegroups.main
+comparegroups.main.table = createTable(x = comparegroups.main, show.all=T)
+comparegroups.main.table 
