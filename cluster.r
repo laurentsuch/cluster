@@ -100,4 +100,12 @@ comparegroups.main = compareGroups(formula=Group ~ ., data=total.c)
 comparegroups.main
 comparegroups.main.table = createTable(x = comparegroups.main, show.all=T)
 comparegroups.main.table 
+comparegroups.html = supressWarnings(export2md(x=comparegroups.main.table, caption=""))
 
+#cluster FAMD analysis 
+princomp <- FAMD(total.total, graph = FALSE) # if missing data, imputeFAMD(total.total) 
+fviz_contrib(princomp, choice="var", axes=1, top=10, sort.val=c("desc"))
+
+# cluster analysis and stats 
+library(fpc)
+cluster.stats(gowdist, clusternum) # clusternum must be numeric - cannot be factors 
