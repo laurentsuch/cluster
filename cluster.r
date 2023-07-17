@@ -41,6 +41,7 @@ df[56:62] <- lapply(df[56:62], ordered, levels=c("Not important at all", "Not ve
 df[68:72] <- lapply(df[68:72], ordered, levels=c("Never", "Seldom", "Sometimes", "Often", "Almost Always"))
 # renames columns 64-67
 
+
 # CLEANING DATA
 df <- df %>% mutate_if(is.character, as.factor) # converts all characters to factors
 ncol(df) # finds number of columns 
