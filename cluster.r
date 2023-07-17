@@ -136,3 +136,5 @@ fviz_contrib(princomp, choice="var", axes=1, top=10, sort.val=c("desc"))
 # cluster analysis and stats 
 library(fpc)
 cluster.stats(gowdist, clusternum) # clusternum must be numeric - cannot be factors 
+
+ggplot(total) + aes(x=clustnum, fill=total$i) + geom_bar()
