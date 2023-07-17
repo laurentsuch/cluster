@@ -36,6 +36,7 @@ df[41] <- lapply(df[41], ordered, levels=c("Fair Weather - My support for the te
                                            "Neutral", "Somewhat Die-hard - My support for the team will remain strong, win or lose.", "Die-hard - My support for the team will remain very strong, win or lose."))
 df[42] <- lapply(df[42], ordered, levels=c("I do not live in the Las Vegas area", "Less than 2 years", "2-5 years", "5-10 years", ">10 years", "Born and raised"))
 # col 43 - change to numerical - maybe NAs to 0?
+df[44] <- lapply(df[44], ordered, levels=c("I did not buy tickets to attend a live game this season", "Individual Game Buyer", "Mini-Plan Buyer (3 games)", "Partial Season Ticket Member (11 games)", "Season Ticket Member"))
 df[45:54] <- lapply(df[45:54], ordered, levels=c("No impact", "Slightly more interested", "A lot more interested"))
 df[56:62] <- lapply(df[56:62], ordered, levels=c("Not important at all", "Not very important", "Slightly important", "Extremely important"))
 df[68:72] <- lapply(df[68:72], ordered, levels=c("Never", "Seldom", "Sometimes", "Often", "Almost Always"))
