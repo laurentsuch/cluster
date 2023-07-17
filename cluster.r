@@ -35,8 +35,11 @@ df[28:38] <- lapply(df[28:38], ordered, levels=c("Not important at all", "Not im
 df[41] <- lapply(df[41], ordered, levels=c("Fair Weather - My support for the team varies greatly depending on team performance.", "Somewhat Fair Weather - My support for the team varies somewhat depending on team performance.", 
                                            "Neutral", "Somewhat Die-hard - My support for the team will remain strong, win or lose.", "Die-hard - My support for the team will remain very strong, win or lose."))
 df[42] <- lapply(df[42], ordered, levels=c("I do not live in the Las Vegas area", "Less than 2 years", "2-5 years", "5-10 years", ">10 years", "Born and raised"))
-
-
+# col 43 - change to numerical - maybe NAs to 0?
+df[45:54] <- lapply(df[45:54], ordered, levels=c("No impact", "Slightly more interested", "A lot more interested"))
+df[56:62] <- lapply(df[56:62], ordered, levels=c("Not important at all", "Not very important", "Slightly important", "Extremely important"))
+df[68:72] <- lapply(df[68:72], ordered, levels=c("Never", "Seldom", "Sometimes", "Often", "Almost Always"))
+# renames columns 64-67
 
 # CLEANING DATA
 df <- df %>% mutate_if(is.character, as.factor) # converts all characters to factors
