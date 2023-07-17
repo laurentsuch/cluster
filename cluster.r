@@ -40,7 +40,7 @@ df[45:54] <- lapply(df[45:54], ordered, levels=c("No impact", "Slightly more int
 df[56:62] <- lapply(df[56:62], ordered, levels=c("Not important at all", "Not very important", "Slightly important", "Extremely important"))
 df[68:72] <- lapply(df[68:72], ordered, levels=c("Never", "Seldom", "Sometimes", "Often", "Almost Always"))
 # renames columns 64-67
-
+# change column 73 -> more than 6 = 7 
 
 # CLEANING DATA
 df <- df %>% mutate_if(is.character, as.factor) # converts all characters to factors
