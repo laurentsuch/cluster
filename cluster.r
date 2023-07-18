@@ -27,7 +27,7 @@ df[11] <- lapply(df[11], ordered, levels=c("I started following during the 2023 
                                            "I started following when the Golden Knights came to Vegas", "I started following many years ago (more than 6 years ago)", "I have been a fan my whole life"))
 df[12] <- lapply(df[12], ordered, levels=c("I do not follow the NHL, just my favorite team", "I follow the NHL somewhat, but I couldn't name more than some teams and players", "I follow the NHL closely, and could 
                                            talk about teams and players having a stong season", "I follow the NHL very closely, and could recount the standings as well as major events happening around the league"))
-df[13:25] <- lapply(df[13:25], ordered, levels=c("Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"))
+df[13:25] <- lapply(df[13:25], ordered, levels=c("Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"))
 df[26] <- lapply(df[26], ordered, levels=c("<5 hours", "6-10 hours", "11-15 hours", "16-20 hours", ">20 hours"))
 df[27] <- lapply(df[27], ordered, levels=c("I did not follow them at all", "I casually followed them as part of the local news", "I actively followed them and can discuss team news in conversation", 
                                            "I followed them closely, they are my favorite team", "I followed them very closely, I am emotionally invested in them"))
@@ -52,7 +52,7 @@ df <- df %>% mutate(across(where(is.numeric), scale)) # scaling only numerical v
 
 # CLUSTERING ALGORITHM 
 # obtains the dissimilarity matrix for gower distances between both numerical and categorical values 
-gower_dist <- daisy(data, metric="gower", weights=c(1:28))
+gower_dist <- daisy(data, metric="gower")
 
 # uses PAM clustering method to find optimal number of k clusters 
 sil_width <- c(NA)
