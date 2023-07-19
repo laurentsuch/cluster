@@ -138,3 +138,6 @@ library(fpc)
 cluster.stats(gowdist, clusternum) # clusternum must be numeric - cannot be factors 
 
 ggplot(total) + aes(x=clustnum, fill=total$i) + geom_bar()
+
+rfmodel <- randomForest(clustnumdf ~ ., data=imputed.df, importance=TRUE)
+randomForest::varImpPlot(rfmodel, sort=TRUE)
