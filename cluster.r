@@ -9,7 +9,7 @@ library(ggplot2)
 library(ggfortify)
 library(factoextra)
 library(FactoMineR)
-library(dpylr)
+library(dplyr)
 library(NbClust)
 library(openxlsx)
 library(nnet)
@@ -19,7 +19,7 @@ library(caret)
 # FOLLoW THIS METHOD:
 # switch column "Approx how many hours of.." to column Z
 df <- df %>% mutate_if(is.character, as.factor)
-df[1] <- lapply(df[1], ordered, levels=c("One of my favorite NHL teams", "Second favorite NHL team", "Favorite NHL Team"))
+df[1] <- lapply(df[1], ordered, levels=c("One of my favorite NHL teams", "Second favorite NHL Team", "Favorite NHL Team"))
 df[3] <- lapply(df[3], ordered, levels=c("18 to 24", "25 to 34", "35 to 44", "45 to 54", "55 to 64", "65 to 74", "75 or older"))
 # column 4 = change none to 0 and more than 5 to 6
 # convert 6-10 to 0/1
@@ -112,7 +112,7 @@ plot(div.clust, main = "Divisive") # divisive clustering model; top-bottom appro
 aggl.clust <- hclust(gower_dist, method = "complete")
 plot(aggl.clust, main = "Agglomerative") # agglomerative clustering model; bottom-top approach
 
-
+totqal 
 # ANALYZING RESULTS OF THE CLUSTER ANALYSIS 
 cluster_num <- tsne_data$cluster
 cluster_num <- as.matrix(cluster_num)
@@ -124,10 +124,8 @@ write.xlsx(cluster_num, file="clusterAssignment") # writes an excel file to list
 # add a cluster num column to data set combine the two using cbind 
 library(compareGroups)
 comparegroups.main = compareGroups(formula=Group ~ ., data=total.c)
-comparegroups.main
-comparegroups.main.table = createTable(x = comparegroups.main, show.all=T)
-comparegroups.main.table 
-comparegroups.html = supressWarnings(export2md(x=comparegroups.main.table, caption=""))
+comparegroups.main.table = createTable(x = comparegroups.main, show.all=T) 
+comparegroups.html = suppressWarnings(export2md(x=comparegroups.main.table, caption=""))
 
 #cluster FAMD analysis 
 princomp <- FAMD(total.total, graph = FALSE) # if missing data, imputeFAMD(total.total) 
