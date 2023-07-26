@@ -112,7 +112,7 @@ plot(div.clust, main = "Divisive") # divisive clustering model; top-bottom appro
 aggl.clust <- hclust(gower_dist, method = "complete")
 plot(aggl.clust, main = "Agglomerative") # agglomerative clustering model; bottom-top approach
 
-totqal 
+
 # ANALYZING RESULTS OF THE CLUSTER ANALYSIS 
 cluster_num <- tsne_data$cluster
 cluster_num <- as.matrix(cluster_num)
