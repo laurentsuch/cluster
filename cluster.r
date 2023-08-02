@@ -90,7 +90,6 @@ res.famd <- FAMD(df) # FAMD takes mixed data
 print(res.famd)
 fviz_screeplot(res.famd)
 var <- get_famd_var(res.famd)
-var
 head(var$coord)
 fviz_famd_var(res.famd, repel=TRUE)
 fviz_contrib(res.famd, "var", axes = 1)
