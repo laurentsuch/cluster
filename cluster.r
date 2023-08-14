@@ -1,6 +1,5 @@
-# BELOW is the helper code for clustering algorithm and predictive piece to shorten our survey
-# Not all steps are necessary for analysis; read comments for necessary implementation 
-# This is NOT complete 
+# helper code for clustering algorithm and predictive piece to shorten our survey
+
 
 library(h2o)
 library(cluster)
@@ -16,8 +15,9 @@ library(nnet)
 library(caret)
 
 
-# FOLLoW THIS METHOD:
-# switch column "Approx how many hours of.." to column Z
+# DATA CLEANING 
+# switched from char to factors 
+# ordered factors below 
 df <- df %>% mutate_if(is.character, as.factor)
 df[1] <- lapply(df[1], ordered, levels=c("One of my favorite NHL teams", "Second favorite NHL Team", "Favorite NHL Team"))
 df[3] <- lapply(df[3], ordered, levels=c("18 to 24", "25 to 34", "35 to 44", "45 to 54", "55 to 64", "65 to 74", "75 or older"))
@@ -47,7 +47,7 @@ df[68:72] <- lapply(df[68:72], ordered, levels=c("Never", "Seldom", "Sometimes",
 df <- df %>% mutate_if(is.character, as.factor) # converts all characters to factors
 ncol(df) # finds number of columns 
 df <- df %>% mutate(across(where(is.numeric), scale)) # scaling only numerical values in data frame
-# SAVE AN EXCEL SHEET WITH FINALIZED DATA MEMBERS AFTER CLEANING (MUST DO!!!)
+# SAVE AN EXCEL SHEET WITH FINALIZED DATA MEMBERS AFTER CLEANING 
 
 
 # CLUSTERING ALGORITHM 
@@ -90,19 +90,17 @@ res.famd <- FAMD(df) # FAMD takes mixed data
 print(res.famd)
 fviz_screeplot(res.famd)
 var <- get_famd_var(res.famd)
-head(var$coord)
-fviz_famd_var(res.famd, repel=TRUE)
 fviz_contrib(res.famd, "var", axes = 1)
-fviz_contrib(res.famd, "var", axes = 2)
+fviz_contrib(res.famd, "var", axes = 2) # finds important variables that contribute 
 
 # multinomial linear regression model 
 total <- cbind(cluster.df, df)
-multinom.fit <- multinom(cluster.df ~ ., data = df)
+multinom.fit <- multinom(cluster.df ~ ., data = total) # first will all variables to find important variables / p vals
 summary(multinom.fit)
 z <- (summary(test)$coefficients)/(summary(test)$standard.errors)
 p <- (1 - pnorm(abs(z), 0, 1)) * 2
-exp(coef(test))
 impVar <- varImp(multinom.fit)
+predictions <- predict(multinom.fit, df) # find predictive and accuracy %
 
 
 # OPTIONAL HIERARCHIAL CLUSTERING
@@ -126,7 +124,7 @@ comparegroups.main = compareGroups(formula=Group ~ ., data=total.c)
 comparegroups.main.table = createTable(x = comparegroups.main, show.all=T) 
 comparegroups.html = suppressWarnings(export2md(x=comparegroups.main.table, caption=""))
 
-#cluster FAMD analysis 
+# cluster FAMD analysis 
 princomp <- FAMD(total.total, graph = FALSE) # if missing data, imputeFAMD(total.total) 
 fviz_contrib(princomp, choice="var", axes=1, top=10, sort.val=c("desc"))
 
@@ -134,7 +132,9 @@ fviz_contrib(princomp, choice="var", axes=1, top=10, sort.val=c("desc"))
 library(fpc)
 cluster.stats(gowdist, clusternum) # clusternum must be numeric - cannot be factors 
 
+# to plot one variable 
 ggplot(total) + aes(x=clustnum, fill=total$i) + geom_bar()
 
+# classification model 
 rfmodel <- randomForest(clustnumdf ~ ., data=imputed.df, importance=TRUE)
 randomForest::varImpPlot(rfmodel, sort=TRUE)
